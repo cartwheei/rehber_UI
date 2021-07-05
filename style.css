@@ -1,0 +1,30 @@
+
+#getapi {
+    z-index: 1001;
+    position: fixed;
+    right: 250px;
+    width: 250px;
+    height: 100%;
+    margin-right: -250px;
+    padding-right: 0;
+    top:20px;
+}
+
+#collapseExample{
+    z-index: 1001;
+    position: fixed;
+    right: 250px;
+    width: 500px;
+    height: fit-content;
+    margin-right: -250px;
+    background: rgb(255, 255, 255);
+    
+}
+
+.row{
+    margin:10px;
+}
+
+.btn{
+    margin:10px;
+}

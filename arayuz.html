@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    <meta charset="utf-8">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="style.css">
+    <title>Rehber haritası arayuzu</title>
+  </head>
+  <body>
+
+        <div id="getapi">
+                    
+            <button class="btn btn-primary" role="button" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                Gis Api İsteği
+            </button>
+                   
+            <div class="collapse" id="collapseExample">
+                
+                <form>
+                    <div class="mb-3 row">
+                <h6>Yeni Bir Kayıt Eklemek İçin Objectid Değerini Boş Bırakarak İlgili Alanları Doldurunuz. 
+                    Eğer Mevcutta Bulunan Kaydın Değerlerini Değiştirmek İstiyorsanız Değiştirmek İstediğiniz 
+                    Kaydın Objectid Değerini İlgili Alana Yazıp Diğer Değerleri Güncelleyebilirsiniz.(Örn: 64 )</h6>
+                    </div>
+                <div class="mb-3 row">
+                  <label for="inputId" class="col-sm-4 col-form-label">Objectid:</label>
+                  <div class="col-sm-8">
+                    <input type="text" class="form-control" id="inputId">
+                  </div>
+                </div>
+                <div class="mb-3 row">
+                  <label for="nkt" class="col-sm-4 col-form-label">Nokta Adı:</label>
+                  <div class="col-sm-8">
+                    <input type="text" class="form-control" id="nkt">
+                  </div>
+    
+                </div>
+                   <div class="mb-3 row">
+                  <label for="bld" class="col-sm-4 col-form-label">BillBoard Adedi:</label>
+                  <div class="col-sm-8">
+                    <input type="text" class="form-control" id="bld">
+                  </div>
+                </div>
+    
+                    <div class="mb-3 row">
+                  <label for="tbl" class="col-sm-4 col-form-label">Tabela Boyutu:</label>
+                  <div class="col-sm-8">
+                    <input type="text" class="form-control" id="tbl">
+                  </div>
+                </div>
+    
+                <div class="mb-3 row">
+                  <label for="ack" class="col-sm-4 col-form-label">Açıklama:</label>
+                  <div class="col-sm-8">
+                    <textarea class="form-control" id="ack" rows="3"></textarea>
+                  </div>
+                </div>
+            </form>
+    
+            <div class="row">
+            <div class="col-sm">
+            <button class="btn btn-success" type="button" >
+                Yeni Kayıt
+            </button>        
+               <button class="btn btn-danger" type="button" >
+                Temizle
+            </button>
+             <button id="getUserDetail" class="btn btn-secondary getUserDetail " type="button" >
+                Api Giriş
+            </button>      
+            
+            </div>
+            </div>
+        </div>
+        </div>
+
+  </body>
+<script>
+  
+
+  function getUserDetail() {
+   var endPoint = 'http://netigmademo.netcad.com.tr/belnet/gisapi/authentication/login';
+   var postData = { userName: 'netadmin', password: 'ntc123*' };
+   return $.when(
+       $.ajax({
+           url: endPoint,
+           data: JSON.stringify(postData),
+           method: 'POST',
+           contentType: 'application/json; charset=utf-8',
+           dataType: 'json',
+       }));
+}
+
+    function getUserDetail2 (){
+      var endPoint = 'http://netigmademo.netcad.com.tr/belnet/gisapi/authentication/login';
+    var postData = { userName: 'netadmin', password: 'ntc123*' };
+    fetch('http://netigmademo.netcad.com.tr/belnet/gisapi/authentication/login',
+    {method:'POST', headers:{'Accept': 'application/json','Content-Type': 'application/json'
+                }}).then(response=>response.json()).then(data=>console.log(data))
+    }
+
+$('.getUserDetail').click(getUserDetail2)
+
+  
+
+</script>
+
+
+</html>
