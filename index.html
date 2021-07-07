@@ -92,7 +92,10 @@
            method: 'POST',
            contentType: 'application/json; charset=utf-8',
            dataType: 'json',
-       }));
+       })).then(function (data, textStatus, jqXHR) {
+           console.log(data,textStatus,jqXHR);
+          });
+
 }
 
     function getUserDetail2 (){
@@ -102,7 +105,10 @@
                 }}).then(response=>response.json()).then(data=>console.log(data))
     }
 
-$('.getUserDetail').click(getUserDetail2)
+
+
+
+$('.getUserDetail').click(getUserDetail_f)
 
   
 
