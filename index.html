@@ -71,7 +71,10 @@
             </button>
              <button id="getUserDetail" class="btn btn-secondary getUserDetail " type="button" >
                 Api Giriş
-            </button>      
+            </button>   
+            <button id="data_send" class="btn btn-secondary data_send " type="button" >
+              veri gönder
+          </button>      
             
             </div>
             </div>
@@ -81,36 +84,82 @@
   </body>
 <script>
   
- 
-  function getUserDetail_f() {
-   var endPoint = 'http://netigmademo.netcad.com.tr/belnet/gisapi/authentication/login';
-   var postData = { userName: 'netadmin', password: 'ntc123*' };
-   return $.when(
-       $.ajax({
-           url: endPoint,
-           data: JSON.stringify(postData),
-           method: 'POST',
-           contentType: 'application/json; charset=utf-8',
-           dataType: 'json',
-       })).then(function (data, textStatus, jqXHR) {
-           console.log(data,textStatus,jqXHR);
-          });
 
+ var username =  'netadmin';
+ var pass = '1';
+ var sesion_alper = {};
+
+function getUserDetail_f(username,pass) {
+ var endPoint = 'http://192.168.2.39/belnet/gisapi/authentication/login';
+ var diyar_endpoint = 'http://cbs.diyarbakir.bel.tr/belnet/gisapi/authentication/login';
+ var postData = { userName: 'netadmin', password: '1' };
+ return $.when(
+     $.ajax({
+         url: endPoint,
+         data: JSON.stringify(postData),
+         method: 'POST',
+         contentType: 'application/json; charset=utf-8',
+         dataType: 'json',
+     })).then(function (data, textStatus, jqXHR) {
+         console.log(data);
+         sesion_alper.id = data.sessionid
+         console.log(sesion_alper,'sessionalper')
+         return (data)
+        });
+        
+    //     $.ajax({
+    //     url: endPoint,
+    //      data: JSON.stringify(postData),
+    //      method: 'POST',
+    //      contentType: 'application/json; charset=utf-8',
+    //      dataType: 'json',
+    //     success: function(data) {
+    //         return {'id':data.sessionid}
+    //     },
+    //     error: function() {
+    //         alert('Error occured');
+    //     }
+    // });
 }
 
     // function getUserDetail2 (){
-    // var postData = { userName: 'netadmin', password: 'ntc123*' };
-    // fetch('http://netigmademo.netcad.com.tr/belnet/gisapi/authentication/login',
-    // {method:'POST', headers:{'Accept': 'application/json','Content-Type': 'application/json'
+    // var postData = { userName: 'netadmin', password: '1' };
+    // fetch('http://192.168.2.39/belnet/gisapi/authentication/login', postData,
+    // {method:'POST', 
+    // dataType:'json',
+    // headers:{'Accept': 'application/json','Content-Type': 'application/json'
     //             }}).then(response=>response.json()).then(data=>console.log(data))
     // }
 
 
-
-
+ async function testFormSave() {
+  //  Nasıl oturum anahtarı alınır? bkz:Login(ClientUser)
+   const res = await  getUserDetail_f(username,pass);
+   var sid = sesion_alper.id
+   console.log(sid,'alper')
+   var data = {};            
+   data["ada"] = "123456";
+   data["parsel"] = "123456";
+   var objectid ="9000000000";
+   var wkt =  "";
+   var name  = "parsel_alper.BilgiFormu";
+   var endPoint = `http://192.168.2.39/belnet/gisapi/Form/saveform?name=${name}&objectid=${objectid}&geometryWKT=${wkt}&sessionid=${sid}`;
+   console.log(endPoint,data)
+   $.ajax({
+       contentType: "application/json; charset=utf-8",
+       type: "POST",
+       url: endPoint,
+       dataType: 'json',
+       data: JSON.stringify(data),
+       success: function (data) {
+           console.log(data);
+       }
+   });
+}
+  
 $('.getUserDetail').click(getUserDetail_f)
 
-  
+$('.data_send').click(testFormSave)
 
 </script>
 
